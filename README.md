@@ -8,11 +8,9 @@ An offline Kubernetes adventure: investigate customer incidents, repair a simula
 | --- | ---: | --- | --- | --- |
 | **KubeQuest** — the complete Kubernetes learning adventure | 20 across 4 districts | Self-paced | [Play KubeQuest](https://edmvidanes.github.io/kube-quest/) | [Download KubeQuest HTML](https://github.com/edmvidanes/kube-quest/raw/refs/heads/main/index.html) |
 
-The Play link opens the game on GitHub Pages. The hosted game and offline download use the same single `index.html`; the README and screenshots are only documentation. Source repository: **[edmvidanes/kube-quest](https://github.com/edmvidanes/kube-quest)**.
+The Play link opens the game on GitHub Pages. The hosted game and offline download use the same single `index.html`. The repository contains only the game and this README. Source repository: **[edmvidanes/kube-quest](https://github.com/edmvidanes/kube-quest)**.
 
 For offline play, use **Settings → Download offline game**, or save the HTML download above as `KubeQuest-Offline.html` and open it in your browser. Transfer existing progress separately with **Settings → Export progress / Import progress**.
-
-![KubeQuest cloud-region map](docs/cloud-map.jpg)
 
 ## How to play
 
@@ -39,18 +37,16 @@ Hints, retries, and replay are free. Each normal mission awards 100 XP once; the
 
 The searchable field guide contains concepts, commands, failure explanations, and YAML examples. In hint solutions, replace `$pod` with a current Ready managed Pod name from `kubectl get pods`; guided controls choose a suitable name automatically.
 
-![Incident lab, cluster diagram, guided controls and terminal](docs/incident.jpg)
-
 ## GitHub Pages
 
 1. Create the **`kube-quest`** repository under **`edmvidanes`** on GitHub.
-2. Upload the contents of this project and commit them to **`main`**. Place **`index.html` directly at the repository root**, so its path is `kube-quest/index.html`. Upload the contents of the local `kubequest` folder, rather than nesting that folder inside the repository. Include `README.md` and `docs/` if you want the documentation and screenshots displayed on GitHub.
+2. Upload **`index.html`** and **`README.md`** and commit them to **`main`**. Place both files directly at the repository root.
 3. In the repository's **Settings → Pages**, choose **Deploy from a branch**, branch **main**, folder **/ (root)**, then **Save**.
 4. Wait for the Pages deployment to finish, then play at **[https://edmvidanes.github.io/kube-quest/](https://edmvidanes.github.io/kube-quest/)**.
 
 If you choose a different repository name, update both links in the play/download table to match it. If the play link returns 404, check that deployment has finished and `index.html` is at the selected publishing root.
 
-No build workflow or asset path configuration is required. The game works under a repository subpath. The README, screenshots, package manifest, and tests are development/documentation files, not runtime dependencies. Once Pages is configured, commits to `main` automatically update the hosted game.
+No installation, build command, or asset path configuration is required. The game works under a repository subpath. Once Pages is configured, commits to `main` automatically update the hosted game. For local play, open `index.html` directly in your browser.
 
 ## Saved progress
 
@@ -73,21 +69,6 @@ This is a teaching simulator, not a Kubernetes distribution. No command runs on 
 - Graceful Pod termination and drain timing are compressed. PodDisruptionBudgets, advanced eviction policies, multi-container workloads, CronJob scheduling, Helm, installation, operators, RBAC, NetworkPolicy, and cloud provisioning are outside the campaign.
 
 Use the official Kubernetes documentation and a real learning cluster for production behavior and further practice.
-
-## Development and verification
-
-Node.js 24 was used for development. The runtime game needs no Node.js or packages.
-
-```sh
-npm test
-npm install
-npx playwright install chromium
-npm run test:browser
-```
-
-Engine tests load the actual embedded simulator from `index.html`. Browser checks exercise all 20 missions through the terminal and manifest interface on a repository-style hosted path, a local file without networking, and a freshly downloaded offline copy. Additional checks cover persistence, imports, storage failures, sandbox isolation, guided actions, mobile layout, pause, replay, and absence of runtime network requests.
-
-For a local HTTP preview, run `npm start` and open `http://127.0.0.1:4177/kube-quest/`. Directly opening `index.html` also works.
 
 ## Credits
 
